@@ -19,7 +19,7 @@ const Home = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page}&apiKey=582c4a014b0643788527dcc174782aa7`
+        `http://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page}&apiKey=582c4a014b0643788527dcc174782aa7`
       );
       setArticles(response.data.articles);
       setLoading(false);
