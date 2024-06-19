@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nav-link {
+  padding: 10px;
+}
+
+/* Responsive search box */
+.search-box {
+  width: 210px;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .search-box {
+    width: 150px;
+    margin-right: 5px;
+  }
+}
+
+/* Shimmer UI */
+.mainshimmer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Responsive shimmer body */
+.shimmer-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  grid-template-rows: repeat(3, 500px);
+}
+
+@media (max-width: 1024px) {
+  .shimmer-body {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+}
+
+@media (max-width: 768px) {
+  .shimmer-body {
+    grid-template-columns: 1fr; 
+    grid-template-rows: repeat(3, 400px); 
+  }
+}
+
+/* Shimmer effect */
+.shimmer {
+  margin: 30px;
+  height: 400px;
+  width: 350px;
+  background: linear-gradient(to right, #f6f7f8 0%, #eaebed 50%, #f6f7f8 100%);
+  background-size: 200% 100%;
+  animation: shimmerAnimation 1.5s infinite linear;
+}
+
+.menushimmer {
+  background: linear-gradient(to right, #f6f7f8 0%, #eaebed 50%, #f6f7f8 100%);
+  background-size: 200% 100%;
+  animation: shimmerAnimation 1.5s infinite linear;
+}
+
+@keyframes shimmerAnimation {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* User card */
+.user-card {
+  background-color: yellow;
+  padding: 10px;
+  border: 2px solid black;
+}
