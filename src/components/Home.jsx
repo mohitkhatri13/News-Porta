@@ -27,7 +27,7 @@ const Home = () => {
     setLoading(true); // Set loading state to true before fetching data
     try {
       const response = await axios.get(
-        `https://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page}&apiKey=e3903e052cec486ea21e57ba83957028`
+        `https://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page}&apiKey=582c4a014b0643788527dcc174782aa7`
       );
       setArticles(response.data.articles);
       setLoading(false);
