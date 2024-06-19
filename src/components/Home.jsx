@@ -1,30 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import NewsCard from "./NewsCard";
-import { useParams } from "react-router-dom"; // Import useParams hook
+import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
+
 const Home = () => {
-  let { category } = useParams(); // Destructure category from useParams
+  let { category } = useParams();
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
 
-  if (category === undefined) {
+  if (!category) {
     category = "general";
   }
-  useEffect(() => {
-    fetchData();
-  }, [page, category]); //  this is used to reload the page when we change the page number or change the category
 
-  useEffect(() => {
-    setPage(1); // Reset page to 1 when category changes  
-  }, [category]);
-
-
-  // fetching the api using axios 
-  const fetchData = async () => {
-    setLoading(true); // Set loading state to true before fetching data
+  const fetchData = useCallback(async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `https://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page}&apiKey=582c4a014b0643788527dcc174782aa7`
@@ -35,14 +27,19 @@ const Home = () => {
       setError(error);
       setLoading(false);
     }
-  };
-  
-  // i using shimmer Ui for better user experience just like you tube during the time required for fetch the data from API
+  }, [category, page]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [category]);
+
   if (loading) return <Shimmer />;
-  // if any error occur than error display on UI
   if (error) return <p className="flex">Error fetching data: {error.message}</p>;
 
-  // i filtered the articles based on the image url because some news image url not given in data do i filter out that news 
   const filteredArticles = articles.filter((article) => article.urlToImage);
 
   return (
@@ -54,7 +51,7 @@ const Home = () => {
       ) : (
         <div></div>
       )}
-      
+
       <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
         {filteredArticles.length === 0 ? (
           <div className="font-bold text-lg sm:text-2xl lg:text-3xl text-center">
