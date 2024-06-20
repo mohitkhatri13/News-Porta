@@ -11,8 +11,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
- 
-  // Effect to set category based on search text or URL params
+
  
 
   // Function to fetch articles
@@ -20,7 +19,7 @@ const Home = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page}&apiKey=582c4a014b0643788527dcc174782aa7`
+        `https://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page}&apiKey=5fe2c105ba08430ebbfb28e2fa7a213e`
       );
       setArticles(response.data.articles);
       setLoading(false);

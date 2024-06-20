@@ -40,7 +40,7 @@ const NewsCard = ({ article }) => {
         <div className="mt-auto flex items-center gap-2">
           <a
             href={article.url}
-            target="_blank"
+            target="_self"
             rel="noopener noreferrer"
             className="text-black hover:underline font-bold"
           >
@@ -48,7 +48,7 @@ const NewsCard = ({ article }) => {
           </a>
           <a
             href={article.url}
-            target="_blank"
+            target="self"
             rel="noopener noreferrer"
             className="text-black hover:underline font-bold"
           >

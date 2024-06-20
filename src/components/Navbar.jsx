@@ -44,7 +44,7 @@ const Navbar = () => {
             Entertainment
           </Nav.Link>
         </Nav>
-        <Form inline onSubmit={handleOnSearch} className="flex flex-col lg:flex-row md:flex-row gap-y-2 lg:gap-x-4 items-center justify-center">
+        <Form inline onSubmit={handleOnSearch} className="flex flex-col-reverse lg:flex-row md:flex-row gap-y-2 lg:gap-x-4 items-center justify-center">
         <Button type="submit" variant="primary" className="py-2 px-4  scale-75 lg:scale-100  hover:bg-slate-500 border border-white hover:scale-95 h-10">
             Search
           </Button>
