@@ -1,25 +1,26 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NewsCard from "./NewsCard";
-import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-  let { category } = useParams();
+  
+  const category = useSelector((state) => state.search.searchText); // Get search text from Redux state
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
+ 
+  // Effect to set category based on search text or URL params
+ 
 
-  if (!category) {
-    category = "general";
-  }
-
-  const fetchData = useCallback(async () => {
+  // Function to fetch articles
+  const fetchData = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page}&apiKey=582c4a014b0643788527dcc174782aa7`
+        `https://newsapi.org/v2/top-headlines?country=in&category=${category}&page=${page}&apiKey=582c4a014b0643788527dcc174782aa7`
       );
       setArticles(response.data.articles);
       setLoading(false);
@@ -27,21 +28,28 @@ const Home = () => {
       setError(error);
       setLoading(false);
     }
-  }, [category, page]);
+  };
 
+  // Effect to fetch data when category or page changes
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, [category, page]);
 
+  // Effect to reset page to 1 when category changes
   useEffect(() => {
     setPage(1);
   }, [category]);
 
+  // Render shimmer effect while loading
   if (loading) return <Shimmer />;
+
+  // Render error message if fetch fails
   if (error) return <p className="flex">Error fetching data: {error.message}</p>;
 
+  // Filter articles with image URLs
   const filteredArticles = articles.filter((article) => article.urlToImage);
 
+  // Render articles
   return (
     <div className="container mx-auto p-4 flex flex-col items-center justify-center">
       {filteredArticles.length !== 0 ? (
@@ -55,7 +63,7 @@ const Home = () => {
       <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
         {filteredArticles.length === 0 ? (
           <div className="font-bold text-lg sm:text-2xl lg:text-3xl text-center">
-            Sorry! No more articles available. Check back later!
+            Sorry! No articles found.
           </div>
         ) : (
           filteredArticles.map((article, index) => (
@@ -63,6 +71,7 @@ const Home = () => {
           ))
         )}
       </div>
+
       <div className="flex gap-5 mt-10 md:mt-20">
         {page > 1 && (
           <button
@@ -74,8 +83,8 @@ const Home = () => {
         )}
         {filteredArticles.length !== 0 && (
           <button
-            className="border p-2 w-20 font-bold bg-slate-300 rounded-md hover:scale-95"
             onClick={() => setPage(page + 1)}
+            className="border p-2 w-20 font-bold bg-slate-300 rounded-md hover:scale-95"
           >
             Next
           </button>
