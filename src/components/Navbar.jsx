@@ -44,14 +44,14 @@ const Navbar = () => {
             Entertainment
           </Nav.Link>
         </Nav>
-        <Form inline onSubmit={handleOnSearch} className='flex  gap-x-2 items-center justify-center'>
-        <Button type="submit" variant="primary" className="py-2 px-4 hover:bg-slate-500 border border-white hover:scale-95 h-10">
+        <Form inline onSubmit={handleOnSearch} className="flex flex-col lg:flex-row md:flex-row gap-y-2 lg:gap-x-4 items-center justify-center">
+        <Button type="submit" variant="primary" className="py-2 px-4  scale-75 lg:scale-100  hover:bg-slate-500 border border-white hover:scale-95 h-10">
             Search
           </Button>
           <FormControl
             type="text"
             placeholder="Search"
-            className="mr-sm-2 rounded-md border-gray-300 focus:border-slate-500 max-w-[206px]"
+            className="mr-sm-2 rounded-md  w-[150px] h-[30px] lg:w-full lg:h-full  border-gray-300 focus:border-slate-500 max-w-[206px]"
             value={searchbar}
             onChange={(e) => setSearchbar(e.target.value)}
           />
